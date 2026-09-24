@@ -1,0 +1,87 @@
+[gd_scene format=4 uid="uid://btqynafru8jb5"]
+
+[ext_resource type="Script" uid="uid://87x07x6860cn" path="res://scripts/level.gd" id="1_level"]
+[ext_resource type="TileSet" uid="uid://dmgcvkq3h7d3y" path="res://tileset.tres" id="3_tileset"]
+[ext_resource type="Texture2D" uid="uid://he30467w28be" path="res://assets/background_cave.png" id="4_bg"]
+[ext_resource type="Script" uid="uid://dq80w7w7xlmfh" path="res://scripts/player.gd" id="5_player_script"]
+[ext_resource type="Texture2D" uid="uid://bj32pkk83h2p1" path="res://assets/mr_roller_dude.png" id="6_player_texture"]
+[ext_resource type="PackedScene" path="res://spike.tscn" id="7_spike"]
+[ext_resource type="Texture2D" uid="uid://4aoe1if4877p" path="res://assets/flag.png" id="8_flag"]
+[ext_resource type="Script" uid="uid://bl2h75kec1hee" path="res://scripts/goal.gd" id="9_goal"]
+
+[sub_resource type="CircleShape2D" id="PlayerShape"]
+radius = 31.0
+
+[sub_resource type="RectangleShape2D" id="GoalShape"]
+size = Vector2(54, 116)
+
+[node name="Level2" type="Node2D" unique_id=1409656010]
+script = ExtResource("1_level")
+level_name = "Roller Rush"
+
+[node name="BackgroundLayer" type="CanvasLayer" parent="." unique_id=2104831238]
+layer = -10
+
+[node name="Background" type="TextureRect" parent="BackgroundLayer" unique_id=2059459458]
+offset_right = 1152.0
+offset_bottom = 648.0
+mouse_filter = 2
+texture = ExtResource("4_bg")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=1484916360]
+tile_map_data = PackedByteArray("AAAAAAkAAAABAAAAAAABAAkAAAABAAAAAAACAAkAAAABAAAAAAADAAkAAAABAAAAAAAEAAkAAAABAAAAAAAFAAkAAAABAAAAAAAGAAkAAAABAAAAAAAMAAkAAAABAAAAAAANAAkAAAABAAAAAAAOAAkAAAABAAAAAAAZAAkAAAABAAAAAAAaAAkAAAABAAAAAAAbAAkAAAABAAAAAAAcAAkAAAABAAAAAAAjAAkAAAABAAAAAAAkAAkAAAABAAAAAAAlAAkAAAABAAAAAAAmAAkAAAABAAAAAAAnAAkAAAABAAAAAAAuAAkAAAABAAAAAAAvAAkAAAABAAAAAAAwAAkAAAABAAAAAAAxAAkAAAABAAAAAAAVAAYAAAABAAAAAAAWAAYAAAABAAAAAAAXAAYAAAABAAAAAAAfAAYAAAABAAAAAAAgAAYAAAABAAAAAAAhAAYAAAABAAAAAAAlAAUAAAABAAAAAAAmAAUAAAABAAAAAAAnAAUAAAABAAAAAAArAAQAAAABAAAAAAAsAAQAAAABAAAAAAAtAAQAAAABAAAAAAAHAAkAAAABAAAAAAAIAAkAAAABAAAAAAAJAAkAAAABAAAAAAAPAAkAAAABAAAAAAAQAAkAAAABAAAAAAAXAAkAAAABAAAAAAAYAAkAAAABAAAAAAAQAAcAAAABAAAAAAARAAcAAAABAAAAAAASAAcAAAABAAAAAAAaAAUAAAABAAAAAAAbAAUAAAABAAAAAAAcAAUAAAABAAAAAAAhAAkAAAABAAAAAAAiAAkAAAABAAAAAAAsAAkAAAABAAAAAAAtAAkAAAABAAAAAAA0AAgAAAABAAAAAAA1AAgAAAABAAAAAAAvAAYAAAABAAAAAAAwAAYAAAABAAAAAAAxAAYAAAABAAAAAAA=")
+tile_set = ExtResource("3_tileset")
+
+[node name="Player" type="CharacterBody2D" parent="." unique_id=895269384]
+position = Vector2(115, 500)
+collision_layer = 2
+script = ExtResource("5_player_script")
+
+[node name="Sprite2D" type="Sprite2D" parent="Player" unique_id=1017064595]
+scale = Vector2(0.72, 0.72)
+texture = ExtResource("6_player_texture")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player" unique_id=1526777782]
+shape = SubResource("PlayerShape")
+
+[node name="Camera2D" type="Camera2D" parent="Player" unique_id=306515542]
+position = Vector2(180, -40)
+limit_left = 0
+limit_top = 0
+limit_right = 3520
+limit_bottom = 648
+position_smoothing_enabled = true
+position_smoothing_speed = 7.0
+
+[node name="Hazards" type="Node2D" parent="." unique_id=1291693462]
+
+[node name="Spike1" parent="Hazards" unique_id=1717960718 instance=ExtResource("7_spike")]
+position = Vector2(512, 552)
+
+[node name="Spike2" parent="Hazards" unique_id=929511869 instance=ExtResource("7_spike")]
+position = Vector2(1024, 552)
+
+[node name="Spike3" parent="Hazards" unique_id=301725229 instance=ExtResource("7_spike")]
+position = Vector2(1536, 552)
+
+[node name="Spike4" parent="Hazards" unique_id=1836043424 instance=ExtResource("7_spike")]
+position = Vector2(2176, 552)
+
+[node name="Spike5" parent="Hazards" unique_id=1139326107 instance=ExtResource("7_spike")]
+position = Vector2(2880, 552)
+
+[node name="Goal" type="Area2D" parent="." unique_id=694971500]
+position = Vector2(3380, 500)
+collision_layer = 8
+collision_mask = 2
+script = ExtResource("9_goal")
+
+[node name="Sprite2D" type="Sprite2D" parent="Goal" unique_id=1220958206]
+position = Vector2(18, -49)
+texture = ExtResource("8_flag")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Goal" unique_id=1339683161]
+position = Vector2(15, -45)
+shape = SubResource("GoalShape")
